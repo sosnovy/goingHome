@@ -47,6 +47,9 @@ public abstract class GameObject {
         getNode().setTranslateY(getY());
 
     }
+    public void move(){
+        getNode().setTranslateX(getNode().getTranslateX()+speed);
+    }
 
     public Point2D getTranslationVector() {
         return translationVector;
