@@ -54,19 +54,18 @@ public class ComingHome extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if(lives > 0 && !isHome){
+                if (lives > 0 && !isHome) {
                     gameLoop();
-                }else if(isHome){
-                   homeAlert.show();
-                    Button btn = (Button)homeAlert.getDialogPane().lookupButton(ButtonType.OK);
+                } else if (isHome) {
+                    homeAlert.show();
+                    Button btn = (Button) homeAlert.getDialogPane().lookupButton(ButtonType.OK);
                     btn.setOnAction(actionEvent -> {
                         level++;
                         initialize();
                     });
-                }
-                else{
+                } else {
                     alert.show();
-                    Button btn = (Button)alert.getDialogPane().lookupButton(ButtonType.OK);
+                    Button btn = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
                     btn.setOnAction(actionEvent -> {
                         System.exit(0);
                     });
@@ -87,10 +86,8 @@ public class ComingHome extends Application {
 
         if (avatar.checkCollision(home)) {
             //insert what happens when you win
-            System.out.println("Home is Reached");
             isHome = true;
         }
-
 
 
         Iterator<GameObject> iterator = debris.iterator();
@@ -104,7 +101,6 @@ public class ComingHome extends Application {
                     d.setAlive(false);
                     lives--;
                     livesText.setText("Lives:" + lives);
-                    System.out.println(lives);
                 } else {
                     d.move();
                 }
@@ -167,7 +163,7 @@ public class ComingHome extends Application {
     public void initialize() {
 
         Iterator<Node> itr = root.getChildren().iterator();
-        if(!root.getChildren().isEmpty()){
+        if (!root.getChildren().isEmpty()) {
             for (Iterator<Node> it = itr; it.hasNext(); ) {
                 Node n = it.next();
                 itr.remove();
@@ -179,10 +175,10 @@ public class ComingHome extends Application {
 
         deaths = 0;
         lives = 3;
-        livesText.setFont(Font.font("verdana", FontWeight.BOLD,FontPosture.REGULAR,20));
-        levelText.setFont(Font.font("verdana", FontWeight.BOLD,FontPosture.REGULAR,20));
+        livesText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        levelText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         livesText.setText("Lives: " + lives);
-        levelText.setText("Level: "+ level);
+        levelText.setText("Level: " + level);
 
         avatar = new Avatar();
         avatar.setSpeed(1.5);
@@ -253,11 +249,10 @@ public class ComingHome extends Application {
             start = System.currentTimeMillis();
         } else {
             long calcTime;
-            if(spawnTime - (level*level*4) <= 100){
+            if (spawnTime - (level * level * 4) <= 100) {
                 calcTime = 10;
-            }
-            else{
-                calcTime = (long) (spawnTime - (level*level*1.5));
+            } else {
+                calcTime = (long) (spawnTime - (level * level * 1.5));
             }
             if (finish - start < calcTime) {
                 finish = System.currentTimeMillis();
@@ -268,19 +263,17 @@ public class ComingHome extends Application {
 
                 rand = Math.random() * 1000;
                 if (rand >= 800 || (rand <= 100 && rand >= 0)) {
-                    System.out.println("no spawn");
                 } else {
-                    System.out.println("spawn");
                     Debris d = new Debris();
                     d.setAlive(true);
                     d.setSpawnLeft(spawnLeft);
                     d.getNode().setTranslateY(rand);
                     if (d.isSpawnLeft()) {
                         d.getNode().setTranslateX(0);
-                        d.setSpeed(2*(Math.ceil(((double)level/2))));
+                        d.setSpeed(2 * (Math.ceil(((double) level / 2))));
                     } else {
                         d.getNode().setTranslateX(800);
-                        d.setSpeed(-2*(Math.ceil(((double)level/2))));
+                        d.setSpeed(-2 * (Math.ceil(((double) level / 2))));
                     }
                     debris.add(d);
                     root.getChildren().add(d.getNode());

@@ -8,7 +8,7 @@ public class Debris extends GameObject {
     public boolean spawnLeft;
 
     public Debris() {
-        super(new Circle(0,0,10, Color.BROWN));
+        super(new Circle(0,0,20, Color.BROWN));
     }
 
     public boolean isSpawnLeft() {
